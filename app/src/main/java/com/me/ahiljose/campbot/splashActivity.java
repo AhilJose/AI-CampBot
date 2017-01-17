@@ -2,27 +2,36 @@ package com.me.ahiljose.campbot;
 
 import android.content.Intent;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 public class splashActivity extends AppCompatActivity {
 
+    private static int SPLASH_TIME_OUT = 3000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        //display the CampBot logo for 5 seconds
-        new CountDownTimer(2000,1000){
+
+        new Handler().postDelayed(new Runnable() {
+
+            /*
+             * Showing splash screen with a timer. This will be useful when you
+             * want to show case your app logo / company
+             */
 
             @Override
-            public void onTick(long millisUntilFinished) {
+            public void run() {
+                // This method will be executed once the timer is over
+                // Start your app main activity
+                Intent i = new Intent(splashActivity.this, LoginActivity.class);
+                startActivity(i);
 
+                // close this activity
+                finish();
             }
-
-            @Override
-            public void onFinish() {
-                splashActivity.this.setContentView(R.layout.activity_login);
-            }
-        }.start();
+        }, SPLASH_TIME_OUT);
     }
 }
