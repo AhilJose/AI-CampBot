@@ -1,40 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:orientation="vertical"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="User Name"
-        android:id="@+id/textView" />
-
-    <EditText
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editTextUserName" />
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Password"
-        android:id="@+id/textView2" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:title="Login"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+    </android.support.design.widget.AppBarLayout>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/editTextPassword" />
-
-    <Button
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        android:onClick="invokeLogin"
-        android:id="@+id/button" />
-</LinearLayout>
+        android:layout_height="fill_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        tools:context=".LoginActivity">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#FFFFFF"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:paddingBottom="25dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:paddingTop="60dp">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="20dp"
+                android:gravity="center"
+                android:layout_marginLeft="-25dp"
+                android:layout_marginRight="-25dp"
+                android:background="#fa00ff51"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/net_status"
+                android:layout_gravity="center_horizontal" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="User name"
+                android:id="@+id/editTextUserName"
+                app:met_iconLeft="@drawable/ic_mail_gery600_24dp"
+                android:textCursorDrawable="@drawable/textview"
+                android:textSize="30sp"
+                app:met_baseColor="#a24ecd"
+                app:met_floatingLabel="highlight"
+                app:met_primaryColor="?colorPrimaryDark"
+                app:met_singleLineEllipsis="true" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:id="@+id/editTextPassword"
+                app:met_iconLeft="@drawable/ic_mail_gery600_24dp"
+                android:textCursorDrawable="@drawable/textview"
+                android:textSize="30sp"
+                app:met_baseColor="#a24ecd"
+                app:met_floatingLabel="highlight"
+                app:met_primaryColor="?colorPrimaryDark"
+                app:met_singleLineEllipsis="true" />
+
+            <Button android:id="@+id/button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Login"
+                android:onClick="invokeLogin"
+                android:background="@color/colorPrimaryDark"
+                android:layout_marginTop="40dp"
+                android:textColor="@android:color/white"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="or"
+                android:id="@+id/textView"
+                android:layout_gravity="center_horizontal" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Continue without Login"
+                android:id="@+id/but_2"
+                android:layout_gravity="center_horizontal"
+                android:background="#00ffffff"
+                android:textColor="#3600fb" />
+
+        </LinearLayout>
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

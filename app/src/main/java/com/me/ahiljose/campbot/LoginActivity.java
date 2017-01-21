@@ -4,15 +4,20 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
@@ -37,9 +42,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText editTextUserName;
     private EditText editTextPassword;
+    private SharedPreferences shared;
+
+    ConnectionDetector cd;
 
     public static final String USER_NAME = "USERNAME";
-
+    private TextView status;
     String username;
     String password;
 
@@ -49,6 +57,25 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         editTextUserName = (EditText) findViewById(R.id.editTextUserName);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+        status = (TextView) findViewById(R.id.net_status);
+
+        cd = new ConnectionDetector(this);
+/*        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitleTextColor(Color.WHITE);
+
+        final ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar != null) {
+            supportActionBar.setDisplayHomeAsUpEnabled(true);
+        }
+*/
+        if (cd.isConnected()) {
+            status.setText("Connected");
+        }
+        else {
+            status.setText("Not Connected");
+        }
+        shared = getSharedPreferences("one_time",MODE_PRIVATE);
     }
 
     public void invokeLogin(View view){
@@ -84,8 +111,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 try{
                     HttpClient httpClient = new DefaultHttpClient();
-                    HttpPost httpPost = new HttpPost(
-                            "http://ahiljose.me/master/chatbot/index.php");
+                    //HttpPost httpPost = new HttpPost("http://192.168.42.41/chatbot/index.php");
+                    HttpPost httpPost = new HttpPost("http://ahiljose.me/master/chatbot/index.php");
                     httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
                     HttpResponse response = httpClient.execute(httpPost);
@@ -118,6 +145,11 @@ public class LoginActivity extends AppCompatActivity {
                 String s = result.trim();
                 loadingDialog.dismiss();
                 if(s.equalsIgnoreCase("success")){
+                    SharedPreferences.Editor ed = shared.edit();
+                    ed.putBoolean("loggedIn",true);
+                    ed.putString("username",editTextUserName.getText().toString());
+                    ed.putString("password",editTextPassword.getText().toString());
+                    ed.commit();
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     intent.putExtra(USER_NAME, username);
                     finish();

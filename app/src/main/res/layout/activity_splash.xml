@@ -1,15 +1,31 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:orientation="vertical"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity" >
 
-
-    <ImageView
-        android:id="@+id/imgLogo"
+    <io.saeid.fabloading.LoadingView
+        android:id="@+id/loading_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:src="@mipmap/ic_launcher" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scaleX="1.5"
+        android:layout_marginBottom="60dp"
+        android:scaleY="1.5"
+        app:mfl_repeat="4"
+        app:mfl_duration="500"
+        app:mfl_onclickLoading="true" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="100dp" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -18,7 +34,6 @@
         android:textColor="#d1d1d1"
         android:gravity="center_horizontal"
         android:text="CampBot"
-        android:layout_below="@+id/imgLogo"
-        android:paddingTop="50dp" />
+        android:layout_below="@+id/imgLogo" />
 
-</RelativeLayout>
+</LinearLayout>
