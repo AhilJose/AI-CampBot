@@ -13,41 +13,41 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@color/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
             app:title="Login"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="#d900ff51"
+            android:textColor="#ffffff"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/net_status"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:visibility="visible" />
+
     </android.support.design.widget.AppBarLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         tools:context=".LoginActivity">
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="#FFFFFF"
+            android:layout_height="wrap_content"
+            android:background="#2cfffefe"
             android:layout_centerInParent="true"
             android:orientation="vertical"
             android:paddingBottom="25dp"
             android:paddingLeft="25dp"
             android:paddingRight="25dp"
-            android:paddingTop="60dp">
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="20dp"
-                android:gravity="center"
-                android:layout_marginLeft="-25dp"
-                android:layout_marginRight="-25dp"
-                android:background="#fa00ff51"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:id="@+id/net_status"
-                android:layout_gravity="center_horizontal" />
+            android:paddingTop="100dp">
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:layout_width="match_parent"
@@ -57,9 +57,9 @@
                 app:met_iconLeft="@drawable/ic_mail_gery600_24dp"
                 android:textCursorDrawable="@drawable/textview"
                 android:textSize="30sp"
-                app:met_baseColor="#a24ecd"
+                app:met_baseColor="@color/colorPrimary"
                 app:met_floatingLabel="highlight"
-                app:met_primaryColor="?colorPrimaryDark"
+                app:met_primaryColor="@color/colorPrimary"
                 app:met_singleLineEllipsis="true" />
 
             <com.rengwuxian.materialedittext.MaterialEditText
@@ -71,9 +71,9 @@
                 app:met_iconLeft="@drawable/ic_mail_gery600_24dp"
                 android:textCursorDrawable="@drawable/textview"
                 android:textSize="30sp"
-                app:met_baseColor="#a24ecd"
+                app:met_baseColor="@color/colorPrimary"
                 app:met_floatingLabel="highlight"
-                app:met_primaryColor="?colorPrimaryDark"
+                app:met_primaryColor="@color/colorPrimary"
                 app:met_singleLineEllipsis="true" />
 
             <Button android:id="@+id/button"
