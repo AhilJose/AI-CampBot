@@ -2,12 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#efefef"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#ffffff"
     android:orientation="vertical"
     tools:context=".recentActivity">
 
     <ListView
-        android:id="@+id/msgview"
+        android:id="@+id/listView"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -17,23 +18,29 @@
         android:transcriptMode="alwaysScroll"></ListView>
 
     <LinearLayout
+        android:id="@+id/send_message_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="3">
+        android:layout_alignParentBottom="true"
+        android:background="#00ffffff"
+        android:gravity="bottom"
+        android:orientation="horizontal" >
 
         <EditText
-            android:id="@+id/msg"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="2" />
+            android:id="@+id/et_message"
+            android:hint="Text Message"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
-        <Button
-            android:id="@+id/send"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:text="Send" />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/bt_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_send_24dp" />
 
     </LinearLayout>
 </LinearLayout>
+

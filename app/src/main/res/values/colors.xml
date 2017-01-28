@@ -8,6 +8,8 @@
     <color name="windowBackground">#F3E5F5</color>
     <color name="navigationBarColor">#00000000</color>
     <color name="focus_light">#2962FF</color>
-    <color name="colorAccent">#080808</color>
+    <color name="colorAccent">#03A9F4</color>
+    <color name="colorAccents">#232323</color>
     <color name="dark">#000000</color>
+    <color name="cyan_500">#00bcd4</color>
 </resources>

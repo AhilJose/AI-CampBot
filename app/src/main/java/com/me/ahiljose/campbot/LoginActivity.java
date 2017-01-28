@@ -71,6 +71,11 @@ public class LoginActivity extends AppCompatActivity {
 */
         if (cd.isConnected()) {
             status.setText("Connected");
+            status.postDelayed(new Runnable() {
+                public void run() {
+                    status.setVisibility(View.INVISIBLE);
+                }
+            }, 3000);
         }
         else {
             status.setText("Not Connected");

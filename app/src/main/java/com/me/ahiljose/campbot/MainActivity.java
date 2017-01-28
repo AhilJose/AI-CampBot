@@ -1,6 +1,15 @@
 package com.me.ahiljose.campbot;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.graphics.Shader;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -8,14 +17,48 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.GestureDetector;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
 //recent chat messages shown xml handled activity
 public class MainActivity extends AppCompatActivity {
+
+    String myJSON;
+
+    private static final String TAG_RESULTS = "result";
+    private static final String TAG_ID = "id";
+    private static final String TAG_NAME = "name";
+    private static final String TAG_ADD = "address";
+    ConnectionDetector cd;
+    TextView status;
+
+    JSONArray peoples = null;
+
+    ArrayList<HashMap<String, String>> personList;
+
     private List<recentData> recentList = new ArrayList<>();
     private RecyclerView recyclerView;
     private recentAdapter mAdapter;
@@ -24,69 +67,151 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        cd = new ConnectionDetector(this);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        prepareMovieData();
-        mAdapter = new recentAdapter(recentList);
+        status = (TextView) findViewById(R.id.net_status);
+        personList = new ArrayList<HashMap<String, String>>();
+        if (cd.isConnected()) {
+            status.setText("Connected");
+            status.postDelayed(new Runnable() {
+                public void run() {
+                    status.setVisibility(View.INVISIBLE);
+                }
+            }, 3000);
+        }
+        else {
+            status.setText("Not Connected");
+        }
+        getData();
+        //prepareMovieData();
+
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
 
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                //Toast.makeText(MainActivity.this, "Clicked Bot", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(MainActivity.this, recentActivity.class);
+                startActivity(i);
+            }
 
+            @Override
+            public void onItemLongClick(View view, int position) {
+                Toast.makeText(MainActivity.this, "Clicked LongClick Bot", Toast.LENGTH_SHORT).show();
+            }
+        }));
     }
 
-    private void prepareMovieData() {
-        recentData recent = new recentData("Mad Max: Fury Road", "Action & Adventure", "2015");
-        recentList.add(recent);
+    protected void showList() {
+        try {
+            JSONObject jsonObj = new JSONObject(myJSON);
+            peoples = jsonObj.getJSONArray(TAG_RESULTS);
 
-        recent = new recentData("Inside Out", "Animation, Kids & Family", "2015");
-        recentList.add(recent);
+            recentData recent = new recentData("CampBot", "Hi", "1/24/2017");
+            recentList.add(recent);
 
-        recent = new recentData("Star Wars: Episode VII - The Force Awakens", "Action", "2015");
-        recentList.add(recent);
+            for (int i = 0; i < peoples.length(); i++) {
+                JSONObject c = peoples.getJSONObject(i);
+                String id = c.getString(TAG_ID);
+                String name = c.getString(TAG_NAME);
+                String address = c.getString(TAG_ADD);
+                recent = new recentData();
+                recent.setTitle(name);
+                recent.setYear(id);
+                recent.setGenre(address);
+                recentList.add(recent);
 
-        recent = new recentData("Shaun the Sheep", "Animation", "2015");
-        recentList.add(recent);
+                mAdapter = new recentAdapter(recentList);
+                recyclerView.setAdapter(mAdapter);
+                HashMap<String, String> persons = new HashMap<String, String>();
+                persons.put(TAG_ID, id);
+                persons.put(TAG_NAME, name);
+                persons.put(TAG_ADD, address);
 
-        recent = new recentData("The Martian", "Science Fiction & Fantasy", "2015");
-        recentList.add(recent);
+                personList.add(persons);
+            }
+            //ListAdapter adapter = new SimpleAdapter(MainActivity.this, personList, R.layout.main_list_row, new String[]{TAG_ID, TAG_NAME, TAG_ADD}, new int[]{R.id.title, R.id.genre, R.id.year});
+            //list.setAdapter(adapter);
 
-        recent = new recentData("Mission: Impossible Rogue Nation", "Action", "2015");
-        recentList.add(recent);
+            } catch (JSONException e) {
+            e.printStackTrace();
+            }
 
-        recent = new recentData("Up", "Animation", "2009");
-        recentList.add(recent);
+        }
 
-        recent = new recentData("Star Trek", "Science Fiction", "2009");
-        recentList.add(recent);
+    public void getData() {
+        class GetDataJSON extends AsyncTask<String, Void, String> {
 
-        recent = new recentData("The LEGO Movie", "Animation", "2014");
-        recentList.add(recent);
+            @Override
+            protected String doInBackground(String... params) {
+                DefaultHttpClient httpclient = new DefaultHttpClient(new BasicHttpParams());
+                HttpPost httppost = new HttpPost("http://ahiljose.me/master/chatbot/script.php");
 
-        recent = new recentData("Iron Man", "Action & Adventure", "2008");
-        recentList.add(recent);
+                // Depends on your web service
+                httppost.setHeader("Content-type", "application/json");
 
-        recent = new recentData("Aliens", "Science Fiction", "1986");
-        recentList.add(recent);
+                InputStream inputStream = null;
+                String result = null;
+                try {
+                    HttpResponse response = httpclient.execute(httppost);
+                    HttpEntity entity = response.getEntity();
 
-        recent = new recentData("Chicken Run", "Animation", "2000");
-        recentList.add(recent);
+                    inputStream = entity.getContent();
+                    // json is UTF-8 by default
 
-        recent = new recentData("Back to the Future", "Science Fiction", "1985");
-        recentList.add(recent);
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"), 8);
+                    StringBuilder sb = new StringBuilder();
 
-        recent = new recentData("Raiders of the Lost Ark", "Action & Adventure", "1981");
-        recentList.add(recent);
+                    String line = null;
+                    while ((line = reader.readLine()) != null) {
 
-        recent = new recentData("Goldfinger", "Action & Adventure", "1965");
-        recentList.add(recent);
+                        sb.append(line + "\n");
+                    }
+                    result = sb.toString();
+                } catch (Exception e) {
+                    // Oops
+                } finally {
+                    try {
+                        if (inputStream != null) inputStream.close();
+                    } catch (Exception squish) {
+                    }
+                }
+                return result;
+            }
 
-        recent = new recentData("Guardians of the Galaxy", "Science Fiction & Fantasy", "2014");
-        recentList.add(recent);
+            @Override
+            protected void onPostExecute(String result) {
+                myJSON = result;
+                showList();
+            }
+        }
+        GetDataJSON g = new GetDataJSON();
+        g.execute();
+    }
 
-//        mAdapter.notifyDataSetChanged();
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+    // Inflate the menu; this adds items to the action bar if it is present.
+    getMenuInflater().inflate(R.menu.menu_main, menu);
+    return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+    // Handle action bar item clicks here. The action bar will
+    // automatically handle clicks on the Home/Up button, so long
+    // as you specify a parent activity in AndroidManifest.xml.
+    int id = item.getItemId();
+    //noinspection SimplifiableIfStatement
+    if (id == R.id.action_settings) {
+    return true;
+    }
+    return super.onOptionsItemSelected(item);
     }
 }
