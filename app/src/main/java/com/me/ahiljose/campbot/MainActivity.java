@@ -23,6 +23,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
+import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG_ADD = "address";
     ConnectionDetector cd;
     TextView status;
+    ProgressBar prog;
 
     JSONArray peoples = null;
 
@@ -70,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        prog = (ProgressBar) findViewById(R.id.progressBar);
+        prog.setVisibility(View.GONE);
 
         cd = new ConnectionDetector(this);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -94,8 +98,10 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+
             @Override
             public void onItemClick(View view, int position) {
+                prog.setVisibility(View.VISIBLE);
                 //Toast.makeText(MainActivity.this, "Clicked Bot", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(MainActivity.this, recentActivity.class);
                 startActivity(i);

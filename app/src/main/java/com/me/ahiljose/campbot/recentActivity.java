@@ -65,7 +65,7 @@ public class recentActivity extends AppCompatActivity {
                 mListView.setSelection(mAdapter.getCount() - 1);
             }
         });
-        //checking SD card availablility
+/*        //checking SD card availablility
         boolean a = isSDCARDAvailable();
         //receiving the assets from the app directory
         AssetManager assets = getResources().getAssets();
@@ -99,6 +99,7 @@ public class recentActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+*/
         //get the working directory
         MagicStrings.root_path = Environment.getExternalStorageDirectory().toString() + "/bot";
         System.out.println("Working Directory = " + MagicStrings.root_path);
@@ -108,7 +109,6 @@ public class recentActivity extends AppCompatActivity {
         chat = new Chat(bot);
         String[] args = null;
         mainFunction(args);
-
     }
 
     private void sendMessage(String message) {
@@ -134,7 +134,7 @@ public class recentActivity extends AppCompatActivity {
         ChatMessage chatMessage = new ChatMessage(null, false);
         mAdapter.add(chatMessage);
     }
-    //check SD card availability
+/*    //check SD card availability
     public static boolean isSDCARDAvailable(){
         return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)? true :false;
     }
@@ -146,7 +146,7 @@ public class recentActivity extends AppCompatActivity {
             out.write(buffer, 0, read);
         }
     }
-    //Request and response of user and the bot
+*/    //Request and response of user and the bot
     public static void mainFunction (String[] args) {
         MagicBooleans.trace_mode = false;
         System.out.println("trace mode = " + MagicBooleans.trace_mode);

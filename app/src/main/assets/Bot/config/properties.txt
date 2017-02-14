@@ -1,8 +1,8 @@
-url:http://www.alicebot.org
-name:SUPER
-email:callmom-info@pandorabots.com
-gender:male
-botmaster:Dr. Richard S. Wallace
-organization:ALICE AI Foundation
-version:0.0.4
+url:http://ahiljose.me
+name:JENNIFER
+email:ahiljose.me@gmail.com
+gender:FEMALE
+botmaster: MR. AKHIL JOSE, MR. AKASH GIBY AND MR. JOSE THANKACHAN
+organization:CampBot AI DEVELOPMENT TEAM
+version:1.0
 
