@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG_ADD = "address";
     ConnectionDetector cd;
     TextView status;
-    ProgressBar prog;
 
     JSONArray peoples = null;
 
@@ -72,14 +71,13 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        prog = (ProgressBar) findViewById(R.id.progressBar);
-        prog.setVisibility(View.GONE);
 
         cd = new ConnectionDetector(this);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         status = (TextView) findViewById(R.id.net_status);
         personList = new ArrayList<HashMap<String, String>>();
         if (cd.isConnected()) {
+            getData();
             status.setText("Connected");
             status.postDelayed(new Runnable() {
                 public void run() {
@@ -89,8 +87,12 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             status.setText("Not Connected");
+            recentData recent = new recentData("CampBot", "Hi", "1/24/2017");
+            recentList.add(recent);
+            mAdapter = new recentAdapter(recentList);
+            recyclerView.setAdapter(mAdapter);
         }
-        getData();
+
         //prepareMovieData();
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -101,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(View view, int position) {
-                prog.setVisibility(View.VISIBLE);
                 //Toast.makeText(MainActivity.this, "Clicked Bot", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(MainActivity.this, recentActivity.class);
                 startActivity(i);

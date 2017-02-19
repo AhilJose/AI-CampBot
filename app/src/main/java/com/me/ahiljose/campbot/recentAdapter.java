@@ -1,10 +1,12 @@
 package com.me.ahiljose.campbot;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -12,11 +14,11 @@ import java.util.List;
  * Created by AJ on 1/20/2017.
  */
 //Adapter set to recent message view
-public class recentAdapter extends RecyclerView.Adapter<recentAdapter.MyViewHolder> {
+public class recentAdapter extends RecyclerView.Adapter<recentAdapter.MyViewHolder>  {
 
     private List<recentData> recentList;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView title, year, genre;
 
         public MyViewHolder(View view) {
@@ -24,6 +26,13 @@ public class recentAdapter extends RecyclerView.Adapter<recentAdapter.MyViewHold
             title = (TextView) view.findViewById(R.id.title);
             genre = (TextView) view.findViewById(R.id.genre);
             year = (TextView) view.findViewById(R.id.year);
+            view.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+
+Log.d("zebra",""+getAdapterPosition());
         }
     }
 

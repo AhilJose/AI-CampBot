@@ -28,6 +28,8 @@ import java.util.TimerTask;
 
 import io.saeid.fabloading.LoadingView;
 
+import static com.me.ahiljose.campbot.recentActivity.mainFunction;
+
 public class splashActivity extends AppCompatActivity {
 
     private static int SPLASH_TIME_OUT = 3000;
@@ -38,6 +40,7 @@ public class splashActivity extends AppCompatActivity {
     private LoadingView mLoadViewNoRepeat;
     public Bot bot;
     public static Chat chat;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +61,6 @@ public class splashActivity extends AppCompatActivity {
 
                 SharedPreferences sh = getSharedPreferences("one_time",MODE_PRIVATE);
                 if (sh.getBoolean("loggedIn",false) == false) {
-
-
                     Intent i = new Intent(splashActivity.this, LoginActivity.class);
                     startActivity(i);
                 }
