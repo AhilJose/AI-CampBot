@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Environment;
 import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,8 +37,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class recentActivity extends AppCompatActivity {
-
+public class recentActivity extends AppCompatActivity implements TextToSpeech.OnInitListener{
 
     private ListView mListView;
     private FloatingActionButton mButtonSend;
@@ -47,6 +47,8 @@ public class recentActivity extends AppCompatActivity {
     public Bot bot;
     public static Chat chat;
     private ChatMessageAdapter mAdapter;
+    int MY_DATA_CHECK_CODE = 1000;
+    TextToSpeech textToSpeech;
 //    ProgressBar prog;
 
     @Override
@@ -86,10 +88,14 @@ public class recentActivity extends AppCompatActivity {
                 }
                 sendMessage(message);
                 mimicOtherMessage(response);
+                textToSpeech.speak(response, TextToSpeech.QUEUE_ADD, null);
                 mEditTextMessage.setText("");
                 mListView.setSelection(mAdapter.getCount() - 1);
             }
         });
+        Intent intent = new Intent();
+        intent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+        startActivityForResult(intent, MY_DATA_CHECK_CODE);
 /*        //checking SD card availablility
         boolean a = isSDCARDAvailable();
         //receiving the assets from the app directory
@@ -128,6 +134,8 @@ public class recentActivity extends AppCompatActivity {
 //        prog.setVisibility(View.GONE);
     }
 
+/*** Speech to text */
+
     public void onButtonClick(View v){
         if(v.getId() == R.id.tts){
             promtSpeechInput();
@@ -156,6 +164,17 @@ public class recentActivity extends AppCompatActivity {
                 mEditTextMessage.setText(result.get(0));
             }
                 break;
+        }
+/*** Text to speech */
+        if (request_code == MY_DATA_CHECK_CODE){
+            if (request_code == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS){
+                textToSpeech = new TextToSpeech(this, this);
+            }
+            else {
+                Intent intent = new Intent();
+                intent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+                startActivity(intent);
+            }
         }
     }
 
@@ -205,5 +224,15 @@ public class recentActivity extends AppCompatActivity {
 
         System.out.println("Human: "+request);
         System.out.println("Robot: " + response);
+    }
+
+    @Override
+    public void onInit(int status) {
+        if (status == TextToSpeech.SUCCESS){
+            Toast.makeText(recentActivity.this, "Success", Toast.LENGTH_SHORT).show();
+        }
+        else if (status == TextToSpeech.ERROR){
+            Toast.makeText(recentActivity.this, "Error", Toast.LENGTH_SHORT).show();
+        }
     }
 }
