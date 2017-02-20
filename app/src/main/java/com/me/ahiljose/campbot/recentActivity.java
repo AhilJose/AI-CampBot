@@ -167,10 +167,9 @@ public class recentActivity extends AppCompatActivity implements TextToSpeech.On
         }
 /*** Text to speech */
         if (request_code == MY_DATA_CHECK_CODE){
-            if (request_code == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS){
+            if (result_code == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS){
                 textToSpeech = new TextToSpeech(this, this);
-            }
-            else {
+            } else {
                 Intent intent = new Intent();
                 intent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
                 startActivity(intent);
@@ -213,7 +212,18 @@ public class recentActivity extends AppCompatActivity implements TextToSpeech.On
             out.write(buffer, 0, read);
         }
     }
-*/    //Request and response of user and the bot
+*/
+    @Override
+    public void onInit(int status) {
+        if (status == TextToSpeech.SUCCESS){
+            Toast.makeText(this, "Tell me", Toast.LENGTH_SHORT).show();
+        }
+        else if (status == TextToSpeech.ERROR){
+            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    //Request and response of user and the bot
     public static void mainFunction (String[] args) {
         MagicBooleans.trace_mode = false;
         System.out.println("trace mode = " + MagicBooleans.trace_mode);
@@ -224,15 +234,5 @@ public class recentActivity extends AppCompatActivity implements TextToSpeech.On
 
         System.out.println("Human: "+request);
         System.out.println("Robot: " + response);
-    }
-
-    @Override
-    public void onInit(int status) {
-        if (status == TextToSpeech.SUCCESS){
-            Toast.makeText(recentActivity.this, "Success", Toast.LENGTH_SHORT).show();
-        }
-        else if (status == TextToSpeech.ERROR){
-            Toast.makeText(recentActivity.this, "Error", Toast.LENGTH_SHORT).show();
-        }
     }
 }
