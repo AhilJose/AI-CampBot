@@ -1,0 +1,61 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<aiml>
+<category><pattern> _ MANAGER _</pattern><template>The manager of viswajyothi college of engineering is father george oliapuram. </template></category>
+<category><pattern> _ PRINCIPAL </pattern><template><random><li>The PRINCIPAL of viswajyothi college of engineering is Dr JOSEPHKUNJU PAUL C</li><li>PRINCIPAL of VJCET is Dr. JOSEPHKUNJU PAUL</li></random></template></category>
+
+<category><pattern> IS THE * OF VISWAJYOTHI COLLEGE OF ENGINEERING _ FATHER GEORGE OLIAPURAM</pattern><template><set name="answer">Yes</set>. <srai><star/></srai><think><set name="it">THE MANAGER OF VISWAJYOTHI COLLEGE OF ENGINEERING</set></think></template></category>
+
+<category><pattern> WHO IS THE * OF VISWAJYOTHI COLLEGE OF ENGINEERING _ </pattern><template><srai><star/></srai><think><set name="it">THE MANAGER OF VISWAJYOTHI COLLEGE OF ENGINEERING</set></think></template></category>
+
+<category><pattern> WHO IS FATHER GEORGE OLIAPURAM</pattern><template><srai><star/></srai><think><set name="it">THE MANAGER OF VISWAJYOTHI COLLEGE OF ENGINEERING</set></think></template></category>
+
+<!--WITHOUT VISWAJYOTHI COLLEGE-->
+<category><pattern> IS THE * OF VJCET FATHER GEORGE OLIAPURAM</pattern><template><set name="answer">Yes</set>. <srai><star/></srai><think><set name="it">THE MANAGER OF VISWAJYOTHI COLLEGE OF ENGINEERING</set></think></template></category>
+
+<category><pattern> WHO IS THE * OF VJCET </pattern><template><srai><star/></srai><think><set name="it">THE MANAGER OF VISWAJYOTHI COLLEGE OF ENGINEERING</set></think></template></category>
+
+<category><pattern> WHO IS FATHER GEORGE OLIAPURAM</pattern><template><srai><star/></srai><think><set name="it">THE MANAGER OF VISWAJYOTHI COLLEGE OF ENGINEERING</set></think></template></category>
+<!--WITHOUT NAME OF COLLEGE-->
+<category><pattern> IS THE * FATHER GEORGE OLIAPURAM</pattern><template><set name="answer">Yes</set>. <srai><star/></srai><think><set name="it">THE MANAGER OF VISWAJYOTHI COLLEGE OF ENGINEERING</set></think></template></category>
+
+<category><pattern> WHO IS THE * </pattern><template><srai><star/></srai><think><set name="it">THE MANAGER OF VISWAJYOTHI COLLEGE OF ENGINEERING</set></think></template></category>
+
+<category><pattern> WHO IS FATHER GEORGE OLIAPURAM</pattern><template><srai><star/></srai><think><set name="it">THE MANAGER OF VISWAJYOTHI COLLEGE OF ENGINEERING</set></think></template></category>
+<!--CONTACT NUMBER-->
+<category><pattern>NUMBER OF PRINCIPAL</pattern><template>Principals contact number is 0485226221. </template></category>
+<category><pattern> IS PRINCIPALS CONTACT NUMBER 0485226221</pattern><template><set name="answer">Yes</set>. <srai>NUMBER OF PRINCIPAL</srai><think><set name="it">PRINCIPALS CONTACT NUMBER</set></think></template></category>
+
+<category><pattern> WHAT IS PRINCIPALS CONTACT NUMBER </pattern><template><set name="answer"> 0485226221</set>. <srai>NUMBER OF PRINCIPAL</srai><think><set name="it">PRINCIPALS CONTACT NUMBER</set></think></template></category>
+
+<category><pattern> WHAT IS 0485226221</pattern><template><set name="answer"> principals contact number</set>. <srai>NUMBER OF PRINCIPAL</srai><think><set name="it">PRINCIPALS CONTACT NUMBER</set></think></template></category>
+<!--college number-->
+<category><pattern> _ COLLEGE CONTACT NUMBER </pattern><template>The contact number of viswajyothi college of engineering is 04852262211 and 04852262255. </template></category>
+
+<category><pattern> IS THE CONTACT NUMBER OF VISWAJYOTHI COLLEGE OF ENGINEERING 04852262211</pattern><template><set name="answer">Yes</set>. <srai> _ COLLEGE CONTACT NUMBER </srai><think><set name="it">THE CONTACT NUMBER OF VISWAJYOTHI COLLEGE OF ENGINEERING</set><set name="they">04852262211</set></think></template></category>
+
+<category><pattern> IS THE CONTACT NUMBER OF VISWAJYOTHI COLLEGE OF ENGINEERING 04852262255</pattern><template><set name="answer">Yes</set>. <srai> _ COLLEGE CONTACT NUMBER </srai><think><set name="it">THE CONTACT NUMBER OF VISWAJYOTHI COLLEGE OF ENGINEERING</set><set name="they">04852262255</set></think></template></category>
+
+<category><pattern> WHAT IS THE CONTACT NUMBER OF VISWAJYOTHI COLLEGE OF ENGINEERING </pattern><template><set name="answer"> 04852262211 and 04852262255</set>. <srai> _ COLLEGE CONTACT NUMBER </srai><think><set name="it">THE CONTACT NUMBER OF VISWAJYOTHI COLLEGE OF ENGINEERING</set><set name="they">04852262211 AND 04852262255</set></think></template></category>
+
+<category><pattern> WHAT IS 04852262211</pattern><template><set name="answer"> the contact number of viswajyothi college of engineering</set>. <srai> _ COLLEGE CONTACT NUMBER </srai><think><set name="it">THE CONTACT NUMBER OF VISWAJYOTHI COLLEGE OF ENGINEERING</set><set name="they">04852262211</set></think></template></category>
+
+<category><pattern> WHAT IS 04852262255</pattern><template><set name="answer"> the contact number of viswajyothi college of engineering</set>. <srai> _ COLLEGE CONTACT NUMBER </srai><think><set name="it">THE CONTACT NUMBER OF VISWAJYOTHI COLLEGE OF ENGINEERING</set><set name="they">04852262255</set></think></template></category>
+<!--Address-->
+<category><pattern> _ COLLEGE ADDRESS </pattern><template>The address is viswajyothi college of engineering and technology vazhakulam p o muvattupuzha ernakulam district kerala 686670. </template></category>
+
+<category><pattern> IS THE ADDRESS VISWAJYOTHI COLLEGE OF ENGINEERING AND TECHNOLOGY VAZHAKULAM P O MUVATTUPUZHA ERNAKULAM DISTRICT KERALA 686670</pattern><template><set name="answer">Yes</set>. <srai>COLLEGE ADDRESS</srai><think><set name="it">THE ADDRESS</set><set name="they">VISWAJYOTHI COLLEGE OF ENGINEERING AND TECHNOLOGY VAZHAKULAM P O MUVATTUPUZHA ERNAKULAM DISTRICT KERALA 686670</set></think></template></category>
+
+<category><pattern> WHAT IS THE ADDRESS </pattern><template><set name="answer"> viswajyothi college of engineering and technology vazhakulam p o muvattupuzha ernakulam district kerala 686670</set>. <srai>COLLEGE ADDRESS</srai><think><set name="it">THE ADDRESS</set><set name="they">VISWAJYOTHI COLLEGE OF ENGINEERING AND TECHNOLOGY VAZHAKULAM P O MUVATTUPUZHA ERNAKULAM DISTRICT KERALA 686670</set></think></template></category>
+
+<category><pattern> WHAT IS VISWAJYOTHI COLLEGE OF ENGINEERING AND TECHNOLOGY VAZHAKULAM P O MUVATTUPUZHA ERNAKULAM DISTRICT KERALA 686670</pattern><template><set name="answer"> the address</set>. <srai>COLLEGE ADDRESS</srai><think><set name="it">THE ADDRESS</set><set name="they">VISWAJYOTHI COLLEGE OF ENGINEERING AND TECHNOLOGY VAZHAKULAM P O MUVATTUPUZHA ERNAKULAM DISTRICT KERALA 686670</set></think></template></category>
+<!--establishment-->
+<category><pattern> _ COLLEGE BUILD </pattern><template>2001 is the year of establishment. </template></category>
+
+<category><pattern> IS 2001 THE YEAR OF ESTABLISHMENT</pattern><template><set name="answer">Yes</set>. <srai> _ COLLEGE BUILD </srai><think><set name="it">2001</set></think></template></category>
+
+<category><pattern> WHAT IS 2001 </pattern><template><set name="answer"> the year of establishment</set>. <srai> _ COLLEGE BUILD </srai><think><set name="it">2001</set></think></template></category>
+
+<category><pattern> WHAT IS THE YEAR OF ESTABLISHMENT</pattern><template><set name="answer"> 2001</set>. <srai> _ COLLEGE BUILD </srai><think><set name="it">2001</set></think></template></category>
+
+
+</aiml>

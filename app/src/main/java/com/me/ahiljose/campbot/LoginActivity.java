@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText editTextUserName;
     private EditText editTextPassword;
     private SharedPreferences shared;
-
+    Button b2;
     ConnectionDetector cd;
 
     public static final String USER_NAME = "USERNAME";
@@ -58,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         editTextUserName = (EditText) findViewById(R.id.editTextUserName);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         status = (TextView) findViewById(R.id.net_status);
+        b2 = (Button) findViewById(R.id.but_2);
 
         cd = new ConnectionDetector(this);
 /*        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -78,8 +79,19 @@ public class LoginActivity extends AppCompatActivity {
             }, 3000);
         }
         else {
+            status.setBackgroundColor(Color.RED);
             status.setText("Not Connected");
         }
+
+        b2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                finish();
+                startActivity(intent);
+            }
+        });
+
         shared = getSharedPreferences("one_time",MODE_PRIVATE);
     }
 

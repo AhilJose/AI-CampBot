@@ -170,9 +170,9 @@ public class recentActivity extends AppCompatActivity implements TextToSpeech.On
             if (result_code == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS){
                 textToSpeech = new TextToSpeech(this, this);
             } else {
-                Intent intent = new Intent();
-                intent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
-                startActivity(intent);
+//                Intent intent = new Intent();
+//                intent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+//                startActivity(intent);
             }
         }
     }

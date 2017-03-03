@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             status.setText("Not Connected");
-            recentData recent = new recentData("CampBot", "Hi", "1/24/2017");
+            recentData recent = new recentData("CampBot", "Hi", "2017-01-27");
             recentList.add(recent);
             mAdapter = new recentAdapter(recentList);
             recyclerView.setAdapter(mAdapter);
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
             JSONObject jsonObj = new JSONObject(myJSON);
             peoples = jsonObj.getJSONArray(TAG_RESULTS);
 
-            recentData recent = new recentData("CampBot", "Hi", "1/24/2017");
+            recentData recent = new recentData("CampBot", "Hi", "2017-01-27");
             recentList.add(recent);
 
             for (int i = 0; i < peoples.length(); i++) {
